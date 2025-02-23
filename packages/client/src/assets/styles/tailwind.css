@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #1e1e1e;
+  --color-foreground: #ffffff;
+}
+
+@utility absolute-cover {
+  @apply absolute top-0 left-0 w-full h-full;
+}
