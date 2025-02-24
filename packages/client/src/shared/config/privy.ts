@@ -1,6 +1,6 @@
 import { PrivyClientConfig } from "@privy-io/react-auth";
 
-const appId = "your-privy-app-id";
+const appId = "cm7gve1hh00n3z3e4ysxj10j3";
 const config: PrivyClientConfig = {
     appearance: {
         theme: "dark",

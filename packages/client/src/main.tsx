@@ -6,10 +6,10 @@ import Router from "./pages/Router.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <main className="dark">
     <Providers>
-      <main className="bg-background text-foreground">
-        <Router />
-      </main>
+      <Router />
     </Providers>
+    </main>
   </StrictMode>
 );
