@@ -7,7 +7,7 @@ const config: PrivyClientConfig = {
         accentColor: "#f2f2f2",
         logo: "./branding.png",
     },
-    loginMethods: ["twitter", "telegram"],
+    loginMethods: ["twitter"],
     // Create embedded wallets for users who don't have a wallet
     embeddedWallets: {
         createOnLogin: "users-without-wallets",
