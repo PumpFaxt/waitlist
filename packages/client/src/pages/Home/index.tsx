@@ -7,8 +7,11 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
+import { usePrivy } from "@privy-io/react-auth";
 
 export default function () {
+  const privy = usePrivy()
+
   return (
     <>
       <section className="flex flex-col items-center h-screen py-[5vh] px-[10vw]">
@@ -21,9 +24,11 @@ export default function () {
 
         <div className="flex flex-col items-center">
           <p className="w-[50vw] text-center mb-[3vh] text-sm opacity-60">
-            Pumpfaxt is a memecoin launchpad and AI launchpad with leveraged trading <br />
+            Pumpfaxt is a memecoin launchpad and AI launchpad with leveraged
+            trading <br />
             Explore the greatest and latest memes on the Fraxtal network <br />
-            Support will soon be extended to the superchain ecosystem
+            {/* Support will soon be extended to the superchain ecosystem <br /> */}
+            We aim to make memecoins community focused again <br />
           </p>
 
           <Card className="flex flex-col items-center w-[64vw] p-5 bg-card/5 backdrop-blur-lg relative">
@@ -45,7 +50,7 @@ export default function () {
             </CardDescription>
 
             <CardContent className="relative z-10">
-              <Button className="cursor-pointer" asChild>
+              <Button className="cursor-pointer" asChild onClick={() => privy.login()}>
                 <AnimatedGradientText className="group overflow-hidden">
                   <span className="inline font-semibold animate-gradient bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
                     JOIN THE WAILIST
