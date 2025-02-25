@@ -1,6 +1,7 @@
 import { usePrivy } from "@privy-io/react-auth";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
+import Loader from "./Loader";
 
 interface IProps {
   type: "authedOnly" | "unauthedOnly";
@@ -28,7 +29,7 @@ export default function (props: IProps) {
 
   return (
     <>
-      {!privy.ready && <>loading...</>}
+      {!privy.ready && <Loader className="w-1/4 m-auto" />}
       {privy.ready && allowed && <Outlet />}
     </>
   );

@@ -16,7 +16,7 @@ def compress_folder(folder_path, extensions=None, quality=85):
     """Recursively compress images in a folder to WebP format."""
     for root, _, files in os.walk(folder_path):
         for file in files:
-            if extensions is None or file.lower().endswith(tuple(extensions)):
+            if (extensions is None or file.lower().endswith(tuple(extensions))) and not file.lower().endswith(".webp"):
                 file_path = os.path.join(root, file)
                 compress_image_to_webp(file_path, quality)
 
