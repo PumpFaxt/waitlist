@@ -1,0 +1,10 @@
+name = "pumpfaxt-waitlist"
+main = "src/server.ts"
+compatibility_date = "2022-11-07"
+node_compat = true
+
+[[ d1_databases ]]
+binding = "DB"
+database_name = "pumpfaxt-waitlist"
+database_id = "c0defd82-cddc-4f3e-977d-08db2126d647"
+migrations_dir = "drizzle"

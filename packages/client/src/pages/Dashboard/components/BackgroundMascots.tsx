@@ -2,9 +2,9 @@ import { cn } from "@/lib/utils";
 import { randomChoiceFromArray, randomFromRange } from "@/shared/utils/utils";
 import { useEffect, useRef, useState } from "react";
 
-const MAX_GRAVITY = 0.01;
-const INITIAL_VELOCITY_Y = 0.02;
-const INITIAL_VELOCITY_X_RANGE = [0.2, 1.7];
+const MAX_GRAVITY = 0.0003;
+const INITIAL_VELOCITY_Y = 0.001;
+const INITIAL_VELOCITY_X_RANGE = [0.2, 1];
 const IMAGES = [
   "/images/mascots/p1.webp",
   "/images/mascots/p2.webp",
@@ -13,10 +13,10 @@ const IMAGES = [
   "/images/mascots/p5.webp",
   "/images/mascots/p6.webp",
 ];
-const IMAGE_SIZE_RANGE = [50, 100];
+const IMAGE_SIZE_RANGE = [50, 120];
 const MAX_MASCOT_COUNT = 20;
-const MASCOT_GENERATION_INTERVAL = 200;
-const MASCOT_SPAWN_CHANCE = 0.8;
+const MASCOT_GENERATION_INTERVAL = 800;
+const MASCOT_SPAWN_CHANCE = 0.6;
 
 interface IProps {
   className?: string;
@@ -81,7 +81,7 @@ export default function MascotRain(props: IProps) {
   return (
     <div
       ref={containerRef}
-      className={cn("relative overflow-hidden", props.className)}
+      className={cn("overflow-hidden select-none pointer-events-none", props.className)}
     >
       {mascots.map((m, index) => (
         <img
