@@ -2,7 +2,7 @@
   "compilerOptions": {
     "strict": true,
     "skipLibCheck": true,
-    "types": ["@cloudflare/workers-types/2023-07-01"],
+    "types": ["@cloudflare/workers-types/2023-07-01", "bun-types"],
     "lib": ["ES2024"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",

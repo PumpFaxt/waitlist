@@ -6,5 +6,12 @@ node_compat = true
 [[ d1_databases ]]
 binding = "DB"
 database_name = "pumpfaxt-waitlist"
-database_id = "c0defd82-cddc-4f3e-977d-08db2126d647"
+database_id = "865c0083-f8fe-4554-8da7-9dbd5820ac25"
 migrations_dir = "drizzle"
+
+[vars]
+FRONTEND_URL="${FRONTEND_URL}"
+CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID}"
+CLOUDFLARE_DATABASE_ID="${CLOUDFLARE_DATABASE_ID}"
+CLOUDFLARE_D1_TOKEN="${CLOUDFLARE_D1_TOKEN}"
+PRIVY_APP_SECRET="${PRIVY_APP_SECRET}"

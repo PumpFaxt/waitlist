@@ -1,26 +1,54 @@
 import { serverUrl } from "../config/constants";
+import axios, { Axios } from "axios";
 
-let privyAccessToken: string = "Bearer null";
-const client = {
-    call(...args: Parameters<typeof fetch>) {
-        const uri = args[0];
-        const config = args[1] || {};
+const client: Axios = createApi();
 
-        const { headers, body, ...restConfig } = config;
+function createApi() {
+    const client = axios.create({
+        baseURL: serverUrl,
+        timeout: 32000,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 
-        return fetch(serverUrl + uri, {
-            headers: {
-                ...headers,
-                "Authorization": privyAccessToken,
-            },
-            body: JSON.stringify(body),
-            ...restConfig,
-        });
+    client.interceptors.request.use(
+        function (config) {
+            return config;
+        },
+        function (err) {
+            console.error(err);
+            return Promise.reject(err);
+        },
+    );
+
+    // Response Middleware
+    client.interceptors.response.use(
+        function (res) {
+            return res;
+        },
+        function (error) {
+            return Promise.reject(error);
+        },
+    );
+
+    return client;
+}
+
+const apiClient = {
+    get: client.get,
+    post: client.post,
+
+    doesPrivyAccessTokenExist(): boolean {
+        const authHeaderLength = client.defaults.headers.common.Authorization
+            ?.toString().length;
+        return !!authHeaderLength && (authHeaderLength >
+            "Bearer null".length);
+    },
+
+    setPrivyAccessToken(token: string | null) {
+        client.defaults.headers.common.Authorization = "Bearer " + token;
     },
 };
 
-export function setPrivyAccessToken(token: string | null) {
-    privyAccessToken = "Bearer " + token;
-}
-
-export const apiClient = client;
+export default apiClient;

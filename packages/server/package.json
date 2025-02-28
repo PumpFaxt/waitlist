@@ -1,7 +1,7 @@
 {
   "name": "server",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "wrangler dev --env=.env",
     "deploy": "wrangler deploy --minify",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "python ./local-migration.py",
@@ -9,11 +9,12 @@
   },
   "dependencies": {
     "@privy-io/server-auth": "^1.18.9",
+    "dotenv": "^16.4.7",
     "hono": "^4.7.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250214.0",
-    "@types/bun": "latest",
+    "@types/bun": "^1.2.4",
     "wrangler": "^3.109.2"
   }
 }

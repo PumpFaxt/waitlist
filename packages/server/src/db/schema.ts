@@ -7,6 +7,8 @@ export const users = table("users_table", {
     id: t.int().primaryKey({ autoIncrement: true }),
     privyId: t.text().notNull(),
     twitter: t.text().notNull(),
+    name: t.text().notNull(),
+    avatarImageUrl: t.text(),
     telegram: t.text(),
     referralCode: t.text().notNull().unique().$default(() =>
         generateRandomString(6, "alphabetic.lowercase")

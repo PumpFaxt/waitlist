@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { randomChoiceFromArray, randomFromRange } from "@/shared/utils/utils";
 import { useEffect, useRef, useState } from "react";
 
-const MAX_GRAVITY = 0.0003;
+const MAX_GRAVITY = 0.001;
 const INITIAL_VELOCITY_Y = 0.001;
 const INITIAL_VELOCITY_X_RANGE = [0.2, 1];
 const IMAGES = [
@@ -81,7 +81,10 @@ export default function MascotRain(props: IProps) {
   return (
     <div
       ref={containerRef}
-      className={cn("overflow-hidden select-none pointer-events-none", props.className)}
+      className={cn(
+        "overflow-hidden select-none pointer-events-none",
+        props.className
+      )}
     >
       {mascots.map((m, index) => (
         <img
@@ -94,6 +97,7 @@ export default function MascotRain(props: IProps) {
             top: `${m.pos[1]}px`,
             width: `${m.size}px`,
             height: `${m.size}px`,
+            filter: `blur(${m.vel[0] / INITIAL_VELOCITY_X_RANGE[1]}px)`,
             transform: `scale(${m.vel[0] > 0 ? -1 : 1},1)`,
           }}
         />

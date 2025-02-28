@@ -1,7 +1,6 @@
 import { usePrivy } from "@privy-io/react-auth";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
-import Loader from "./Loader";
 
 interface IProps {
   type: "authedOnly" | "unauthedOnly";
@@ -12,12 +11,11 @@ export default function (props: IProps) {
   const navigate = useNavigate();
 
   const allowed =
-    privy.ready &&
-    ((props.type === "authedOnly" && privy.authenticated) ||
-      (props.type === "unauthedOnly" && !privy.authenticated));
+    (props.type === "authedOnly" && privy.authenticated) ||
+    (props.type === "unauthedOnly" && !privy.authenticated);
 
   useEffect(() => {
-    if (privy.ready && !allowed) {
+    if (!allowed) {
       if (props.type === "unauthedOnly") {
         navigate("/dashboard");
       }
@@ -27,10 +25,5 @@ export default function (props: IProps) {
     }
   }, [privy.authenticated]);
 
-  return (
-    <>
-      {!privy.ready && <Loader className="w-1/4 m-auto" />}
-      {privy.ready && allowed && <Outlet />}
-    </>
-  );
+  return <>{allowed && <Outlet />}</>;
 }

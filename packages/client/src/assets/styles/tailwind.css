@@ -1,11 +1,16 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-motion";
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
 
 @utility absolute-cover {
   @apply absolute top-0 left-0 w-full h-full;
+}
+
+@utility size-em {
+  @apply size-[1em];
 }
 
 :root {

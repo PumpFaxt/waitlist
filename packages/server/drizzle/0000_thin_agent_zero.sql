@@ -3,7 +3,7 @@ CREATE TABLE `points_transactions_table` (
 	`user` integer NOT NULL,
 	`points` integer NOT NULL,
 	`reason` text NOT NULL,
-	`createdAt` integer DEFAULT CURRENT_TIMESTAMP,
+	`created_at` integer DEFAULT CURRENT_TIMESTAMP,
 	`deleted_at` integer,
 	FOREIGN KEY (`user`) REFERENCES `users_table`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -11,26 +11,28 @@ CREATE TABLE `points_transactions_table` (
 CREATE TABLE `referrals_table` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`referrer` integer NOT NULL,
-	`referredUser` integer NOT NULL,
-	`createdAt` integer DEFAULT CURRENT_TIMESTAMP,
+	`referred_user` integer NOT NULL,
+	`created_at` integer DEFAULT CURRENT_TIMESTAMP,
 	`deleted_at` integer,
 	FOREIGN KEY (`referrer`) REFERENCES `users_table`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`referredUser`) REFERENCES `users_table`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`referred_user`) REFERENCES `users_table`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE INDEX `referrer_idx` ON `referrals_table` (`referrer`);--> statement-breakpoint
 CREATE TABLE `users_table` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`privyId` text NOT NULL,
+	`privy_id` text NOT NULL,
 	`twitter` text NOT NULL,
+	`name` text NOT NULL,
+	`avatar_image_url` text,
 	`telegram` text,
-	`referralCode` text NOT NULL,
+	`referral_code` text NOT NULL,
 	`points` integer DEFAULT 0,
-	`referredBy` integer,
-	`createdAt` integer DEFAULT CURRENT_TIMESTAMP,
+	`referred_by` integer,
+	`created_at` integer DEFAULT CURRENT_TIMESTAMP,
 	`deleted_at` integer,
-	FOREIGN KEY (`referredBy`) REFERENCES `users_table`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`referred_by`) REFERENCES `users_table`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `users_table_referralCode_unique` ON `users_table` (`referralCode`);--> statement-breakpoint
-CREATE UNIQUE INDEX `privy_id_idx` ON `users_table` (`privyId`);
+CREATE UNIQUE INDEX `users_table_referralCode_unique` ON `users_table` (`referral_code`);--> statement-breakpoint
+CREATE UNIQUE INDEX `privy_id_idx` ON `users_table` (`privy_id`);
