@@ -6,6 +6,8 @@ import { useUser } from "@/shared/stores/authStore";
 import Header from "./components/Header";
 import Leaderboard from "./components/Leaderboard";
 import useApi from "@/shared/hooks/useApi";
+import { Card } from "@/components/ui/card";
+import Icon from "@/shared/components/Icon";
 
 export default function () {
   const user = useUser();
@@ -16,8 +18,8 @@ export default function () {
   if (!user) return <>Redirecting... Please reload if this takes too long</>;
 
   return (
-    <div className="min-h-screen relative flex flex-col py-[5vh] px-[17vw]">
-      <div className="text-2xl sm:text-3xl md:text-4xl flex items-center gap-x-3 drop-shadow-lg">
+    <div className="min-h-screen relative flex flex-col py-[5vh] px-[17vw] gap-y-6">
+      <div className="text-2xl sm:text-3xl md:text-4xl flex items-center justify-center gap-x-3 drop-shadow-lg">
         <img
           src="/logo.png"
           alt="logo"
@@ -29,17 +31,31 @@ export default function () {
       <Header />
 
       {referralsCount.data && points.data && (
-        <div className="flex p-4 bg-card items-center justify-evenly">
-          <div className="">
+        <Card className="flex flex-row items-center divide-x-2 divide-border p-3">
+          <div className="flex-1 flex flex-col gap-y-2 items-center p-2">
             <p className="text-sm text-foreground/70">POINTS EARNED</p>
-            <p>{points.data.points}</p>
+            <p className="font-mono font-medium text-4xl">
+              {points.data.points}
+            </p>
           </div>
 
-          <div className="">
+          <div className="flex-1 flex flex-col gap-y-2 items-center p-2">
             <p className="text-sm text-foreground/70">YOUR REFERRALS</p>
-            <p>{referralsCount.data.count}</p>
+            <p className="font-mono font-medium text-4xl">
+              {referralsCount.data.count}
+            </p>
           </div>
-        </div>
+
+          <div className="flex-1 flex gap-x-2 justify-center items-center p-2">
+            <div className="flex text-foreground/50 items-center gap-x-2 p-2 rounded-lg text-xs"> 
+              <Icon name="triangle-alert" className="size-10" />
+              <p>
+                It might take up to 10mins for your referrals and points to be
+                updated
+              </p>
+            </div>
+          </div>
+        </Card>
       )}
 
       <Leaderboard />

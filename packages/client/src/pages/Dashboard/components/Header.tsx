@@ -16,7 +16,7 @@ export default function () {
   if (!user) return null;
 
   return (
-    <div className="flex self-stretch gap-x-5 my-5">
+    <div className="flex self-stretch gap-x-5">
       <Card className="flex-1 bg-card/5 backdrop-blur-sm rounded-md">
         <CardContent className="flex gap-x-5">
           <Button
