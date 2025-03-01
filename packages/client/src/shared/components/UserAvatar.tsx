@@ -5,6 +5,8 @@ type UserAvatarProps = {
   user?: User;
   useName?: string;
   avatarImageUrl?: string;
+  width?: string;
+  height?: string;
 } 
 
 export default function (props: UserAvatarProps) {
@@ -16,5 +18,5 @@ export default function (props: UserAvatarProps) {
 
   const imageUrl = props.avatarImageUrl || props.user?.avatarImageUrl || placeholderUrl;
 
-  return <img src={imageUrl} className={props.className} />;
+  return <img src={imageUrl} width={props.width} height={props.height} className={props.className} />;
 }

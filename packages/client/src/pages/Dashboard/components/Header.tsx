@@ -16,7 +16,7 @@ export default function () {
   if (!user) return null;
 
   return (
-    <div className="flex self-stretch gap-x-5">
+    <div className="flex flex-col xl:flex-row self-stretch gap-5">
       <Card className="flex-1 bg-card/5 backdrop-blur-sm rounded-md">
         <CardContent className="flex gap-x-5">
           <Button
@@ -31,29 +31,34 @@ export default function () {
             <Icon name="log-out" className="size-5" />
           </Button>
 
-          <UserAvatar
+          <div className="">
+            <UserAvatar
             user={user}
-            className="aspect-square object-cover rounded-md border"
+            width="100"
+            height="100"
+            className="aspect-square flex shrink-0 object-cover rounded-md border"
           />
-          <div className="flex max-w-2/3 flex-col gap-y-8">
+          </div>
+          
+          <div className="flex flex-col gap-y-4 w-full">
             <div className="relative">
               <h2 className="text-3xl truncate flex-1">{user.name}</h2>
               <p className="text-xs text-foreground/50 absolute top-full translate-y-1 font-mono">{referrer.data && `Referred by @${referrer.data.name}`}</p>
             </div>
 
-            <div className="flex gap-x-3">
+            <div className="flex w-full flex-col sm:flex-row gap-3 pb-4">
               <Button
                 variant="outline"
-                className="bg-black flex items-center text-white font-mono text-sm gap-x-2 tracking-tighter uppercase"
+                className="bg-black w-full flex items-center text-white font-mono text-sm gap-x-2 tracking-tighter uppercase"
               >
                 <img src="https://x.com/favicon.ico" className="size-[1.5em]" />
                 {`@${user.twitter}`}
               </Button>
 
-              <div className="relative">
+              <div className="relative w-full">
                 <Button
                   variant="default"
-                  className="text-[#24a2df] flex items-center font-bold font-mono text-sm gap-x-2 tracking-tighter uppercase"
+                  className="text-[#24a2df] w-full flex items-center font-bold font-mono text-sm gap-x-2 tracking-tighter uppercase"
                 >
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/2111/2111644.png"

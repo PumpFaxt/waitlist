@@ -1,4 +1,4 @@
-import { Switch } from "@/components/ui/switch";
+import { Switch } from "@/components/ui/Switch";
 import BackgroundMascots from "./components/BackgroundMascots";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -18,7 +18,7 @@ export default function () {
   if (!user) return <>Redirecting... Please reload if this takes too long</>;
 
   return (
-    <div className="min-h-screen relative flex flex-col py-[5vh] px-[17vw] gap-y-6">
+    <div className="min-h-screen relative flex flex-col py-[5vh] px-[10vw] md:px-[17vw] gap-y-6">
       <div className="text-2xl sm:text-3xl md:text-4xl flex items-center justify-center gap-x-3 drop-shadow-lg">
         <img
           src="/logo.png"
@@ -31,27 +31,31 @@ export default function () {
       <Header />
 
       {referralsCount.data && points.data && (
-        <Card className="flex flex-row items-center divide-x-2 divide-border p-3">
+        <Card className="flex flex-col md:flex-row items-center p-3 px-10 md:px-3">
           <div className="flex-1 flex flex-col gap-y-2 items-center p-2">
-            <p className="text-sm text-foreground/70">POINTS EARNED</p>
+            <p className="text-sm text-foreground/70 text-center w-full">POINTS EARNED</p>
             <p className="font-mono font-medium text-4xl">
               {points.data.points}
             </p>
           </div>
 
-          <div className="flex-1 flex flex-col gap-y-2 items-center p-2">
-            <p className="text-sm text-foreground/70">YOUR REFERRALS</p>
+          <hr className="border-r border-foreground/20 md:h-16 w-full md:w-0" />
+
+          <div className="flex-1 flex flex-col gap-y-2 items-center p-2 justify-center">
+            <p className="text-sm text-foreground/70 text-center w-full">YOUR REFERRALS</p>
             <p className="font-mono font-medium text-4xl">
               {referralsCount.data.count}
             </p>
           </div>
 
-          <div className="flex-1 flex gap-x-2 justify-center items-center p-2">
-            <div className="flex text-foreground/50 items-center gap-x-2 p-2 rounded-lg text-xs"> 
-              <Icon name="triangle-alert" className="size-10" />
-              <p>
-                It might take up to 10mins for your referrals and points to be
-                updated
+          <hr className="border-r border-foreground/20 md:h-16 w-full md:w-0" />
+
+          <div className="flex-1 mb-4 md:mb-0 flex gap-x-2 justify-center items-center p-2">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-4 text-foreground/50 items-center gap-x-2 p-2 rounded-lg text-xs"> 
+              <Icon name="triangle-alert" className="size-4 md:size-12" />
+              <p className="w-full">
+                It might take up to 10 minutes for your referrals and points to be
+                updated..
               </p>
             </div>
           </div>
