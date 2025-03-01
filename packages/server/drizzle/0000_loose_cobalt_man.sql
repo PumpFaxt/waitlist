@@ -8,6 +8,7 @@ CREATE TABLE `points_transactions_table` (
 	FOREIGN KEY (`user`) REFERENCES `users_table`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE INDEX `user_idx` ON `points_transactions_table` (`user`);--> statement-breakpoint
 CREATE TABLE `referrals_table` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`referrer` integer NOT NULL,

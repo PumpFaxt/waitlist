@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "21889960-b077-445d-886c-2bdf438305c5",
+  "id": "89151df6-ea6e-408e-b407-2617fcb466b4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "points_transactions_table": {
@@ -51,7 +51,15 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "user_idx": {
+          "name": "user_idx",
+          "columns": [
+            "user"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {
         "points_transactions_table_user_users_table_id_fk": {
           "name": "points_transactions_table_user_users_table_id_fk",
