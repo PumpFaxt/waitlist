@@ -10,10 +10,12 @@
   "dependencies": {
     "@privy-io/server-auth": "^1.18.9",
     "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.40.0",
     "hono": "^4.7.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250214.0",
+    "drizzle-kit": "^0.30.5",
     "@types/bun": "^1.2.4",
     "wrangler": "^3.109.2"
   }
