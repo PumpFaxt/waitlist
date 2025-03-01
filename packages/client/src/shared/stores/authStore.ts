@@ -1,18 +1,16 @@
 import { create } from "zustand";
-import { User } from "@/shared/types/db";
 import { usePrivy } from "@privy-io/react-auth";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../utils/api";
 import { DAY } from "../config/constants";
 import { useEffect } from "react";
-
-type AuthUser = User;
+import { User } from "../types/db";
 
 interface IAuthState {
-    user: AuthUser | null;
+    user: User | null ;
     referrer: string | null;
     actions: {
-        setUser: (user: AuthUser) => void;
+        setUser: (user: User) => void;
         clearUser: () => void;
         setReferrer: (code: string) => void;
     };

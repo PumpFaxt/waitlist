@@ -1,4 +1,4 @@
-import { useMutation, useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import apiClient from "../utils/api";
 import { DAY, MINUTE } from "../config/constants";
 import { useUser } from "../stores/authStore";

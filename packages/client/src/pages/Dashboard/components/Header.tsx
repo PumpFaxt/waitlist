@@ -5,7 +5,7 @@ import Icon from "@/shared/components/Icon";
 import UserAvatar from "@/shared/components/UserAvatar";
 import useApi from "@/shared/hooks/useApi";
 import { useUser } from "@/shared/stores/authStore";
-import { useLinkAccount, usePrivy } from "@privy-io/react-auth";
+import { usePrivy } from "@privy-io/react-auth";
 
 export default function () {
   const user = useUser();
