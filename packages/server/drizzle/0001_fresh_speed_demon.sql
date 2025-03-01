@@ -1,1 +1,0 @@
-CREATE INDEX `user_idx` ON `points_transactions_table` (`user`);

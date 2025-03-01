@@ -2,7 +2,7 @@ import { getDBfromContext } from "@/db";
 import { getPrivyUserFromContext } from "@/lib/privy";
 import { Hono } from "hono";
 import { eq } from "drizzle-orm";
-import { referrals, users } from "@/db/schema";
+import { pointsTransactions, referrals, users } from "@/db/schema";
 import { getUserFromContext, registerPointsTransaction } from "@/lib/db";
 
 const app = new Hono();
@@ -95,10 +95,24 @@ app.get("/points", async (ctx) => {
     const user = await getUserFromContext(ctx);
 
     if (!user) {
-        return ctx.json(null, 401);
+        return ctx.text("Unauthorized", 401);
     }
 
     return ctx.json({ id: user.id, points: user.points }, 200);
+});
+
+app.get("/points-transactions", async (ctx) => {
+    const user = await getUserFromContext(ctx);
+
+    if (!user) {
+        return ctx.text("Unauthorized", 401);
+    }
+
+    const db = getDBfromContext(ctx);
+
+    const transactions = await db.select().from(pointsTransactions).where(eq(pointsTransactions.user, user.id));
+    
+    return ctx.json(transactions, 200);
 });
 
 app.patch("/update-telegram", async (ctx) => {

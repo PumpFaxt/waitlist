@@ -1,4 +1,4 @@
-import { Switch } from "@/components/ui/Switch";
+import { Switch } from "@/components/ui/switch";
 import BackgroundMascots from "./components/BackgroundMascots";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -8,12 +8,14 @@ import Leaderboard from "./components/Leaderboard";
 import useApi from "@/shared/hooks/useApi";
 import { Card } from "@/components/ui/card";
 import Icon from "@/shared/components/Icon";
+import PointHistory from "./components/PointHistory";
 
 export default function () {
   const user = useUser();
   const [showMascots, setShowMascots] = useState(true);
   const referralsCount = useApi("getReferralsCount");
   const points = useApi("getPoints");
+  const pointsHistory = useApi("getPointsTransactions");
 
   if (!user) return <>Redirecting... Please reload if this takes too long</>;
 
@@ -33,7 +35,11 @@ export default function () {
       {referralsCount.data && points.data && (
         <Card className="flex flex-col md:flex-row items-center p-3 px-10 md:px-3">
           <div className="flex-1 flex flex-col gap-y-2 items-center p-2">
-            <p className="text-sm text-foreground/70 text-center w-full">POINTS EARNED</p>
+            <div className="flex gap-x-2 items-center justify-between">
+              <p className="text-sm text-foreground/70 text-center w-full">POINTS EARNED</p>
+              <PointHistory PointHistoryData={pointsHistory.data} />
+            </div>
+
             <p className="font-mono font-medium text-4xl">
               {points.data.points}
             </p>
@@ -51,8 +57,8 @@ export default function () {
           <hr className="border-r border-foreground/20 md:h-16 w-full md:w-0" />
 
           <div className="flex-1 mb-4 md:mb-0 flex gap-x-2 justify-center items-center p-2">
-            <div className="flex flex-col md:flex-row gap-2 md:gap-4 text-foreground/50 items-center gap-x-2 p-2 rounded-lg text-xs"> 
-              <Icon name="triangle-alert" className="size-4 md:size-12" />
+            <div className="flex flex-col md:flex-row gap-2 md:gap-4 text-foreground/50 items-center gap-x-2 p-2 rounded-lg text-xs">
+              <Icon name="triangle-alert" className="size-4 md:size-10" />
               <p className="w-full">
                 It might take up to 10 minutes for your referrals and points to be
                 updated..
