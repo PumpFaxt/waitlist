@@ -1,17 +1,20 @@
 import { User } from "../types/db";
 
-interface IProps {
-  user: User;
+type UserAvatarProps = {
   className?: string;
-}
+  user?: User;
+  useName?: string;
+  avatarImageUrl?: string;
+} 
 
-export default function (props: IProps) {
-  const placeholderUrl = `https://ui-avatars.com/api/?background=random&bold=true&name=${props.user.name.replaceAll(
+export default function (props: UserAvatarProps) {
+  const useName = props.useName || props.user?.name || props.user?.twitter || "😊";
+  const placeholderUrl = `https://ui-avatars.com/api/?background=random&bold=true&name=${useName.replaceAll(
     " ",
     "+"
   )}`;
 
-  const imageUrl = props.user.avatarImageUrl || placeholderUrl;
+  const imageUrl = props.avatarImageUrl || props.user?.avatarImageUrl || placeholderUrl;
 
   return <img src={imageUrl} className={props.className} />;
 }

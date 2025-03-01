@@ -5,7 +5,7 @@ export default function () {
     <div>
       <img
         src="/images/background.webp"
-        className="absolute-cover object-cover opacity-[0.07] -z-10"
+        className="absolute-cover fixed object-cover opacity-[0.07] -z-10"
       />
       <Outlet />
     </div>

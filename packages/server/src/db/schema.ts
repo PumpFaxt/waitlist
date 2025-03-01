@@ -4,7 +4,7 @@ import { timestamps } from "./columns.helpers";
 import { generateRandomString } from "@/lib/utils";
 
 export const users = table("users_table", {
-    id: t.int().primaryKey({ autoIncrement: true }),
+    id: t.int().notNull().primaryKey({ autoIncrement: true }),
     privyId: t.text().notNull(),
     twitter: t.text().notNull(),
     name: t.text().notNull(),
@@ -33,4 +33,4 @@ export const pointsTransactions = table("points_transactions_table", {
     points: t.int().notNull(),
     reason: t.text().notNull(),
     ...timestamps,
-});
+}, (table) => [t.index("user_idx").on(table.user)]);

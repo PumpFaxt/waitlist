@@ -7,7 +7,7 @@ export function getPrivyClientFromContext(ctx: Context) {
     return privyClient;
 }
 
-export async function getUserFromContext(ctx: Context) {
+export async function getPrivyUserFromContext(ctx: Context) {
     const privyClient = getPrivyClientFromContext(ctx);
     const accessToken = ctx.req.header("Authorization")?.replace("Bearer ", "");
     if (!accessToken) return null;

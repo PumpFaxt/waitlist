@@ -7,23 +7,41 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import { usePrivy } from "@privy-io/react-auth";
-// eslint-disable-next-line react-refresh/only-export-components
+import useApi from "@/shared/hooks/useApi";
+import useQueryParams from "@/shared/hooks/useQueryParams";
+import { useAuthActions } from "@/shared/stores/authStore";
+import { useLoginWithOAuth } from "@privy-io/react-auth";
+
 export default function () {
-  const privy = usePrivy()
+  const query = useQueryParams();
+  const ref = query.get("ref");
+
+  const authActions = useAuthActions();
+  const login = useLoginWithOAuth({
+    onComplete: (_) => {
+      ref && authActions.setReferrer(ref);
+    },
+  });
+
+  const referrer = useApi("getUserInfoByReferralCode", ref);
 
   return (
     <section className="flex flex-col items-center min-h-screen py-[5vh] px-[10vw] sm:px-10 md:px-20 lg:px-32">
       <div className="text-2xl sm:text-3xl md:text-4xl flex items-center gap-x-3">
-        <img src="/logo.png" alt="logo" className="size-[1.2em] sm:size-[2em]" />
+        <img
+          src="/logo.png"
+          alt="logo"
+          className="size-[1.2em] sm:size-[2em]"
+        />
         <h1 className="font-semibold tracking-widest">PUMPFAXT</h1>
       </div>
 
-        <figure role="separator" className="flex-1" />
+      <figure role="separator" className="flex-1" />
 
       <div className="flex flex-col items-center">
         <p className="w-full sm:w-[80vw] md:w-[60vw] lg:w-[50vw] text-center mb-[3vh] text-xs sm:text-sm md:text-base opacity-60">
-          Pumpfaxt is a memecoin launchpad and AI launchpad with leveraged trading <br />
+          Pumpfaxt is a memecoin launchpad and AI launchpad with leveraged
+          trading <br />
           Explore the greatest and latest memes on the Fraxtal network <br />
           We aim to make memecoins community-focused again
         </p>
@@ -42,12 +60,16 @@ export default function () {
             />
           </CardTitle>
           <CardDescription className="text-xs sm:text-sm text-center">
-            You can earn points by participating in the pre-launch campaigns
-            and referral program.
+            You can earn points by participating in the pre-launch campaigns and
+            referral program.
           </CardDescription>
 
-          <CardContent className="relative z-10">
-            <Button className="cursor-pointer" asChild onClick={() => privy.login()}>
+          <CardContent className="relative z-10 flex flex-col items-center">
+            <Button
+              className="cursor-pointer"
+              asChild
+              onClick={() => login.initOAuth({ provider: "twitter" })}
+            >
               <AnimatedGradientText className="group overflow-hidden">
                 <span className="inline font-semibold animate-gradient bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
                   JOIN THE WAITLIST
@@ -62,19 +84,30 @@ export default function () {
                 </div>
               </AnimatedGradientText>
             </Button>
+            {referrer.data?.name && (
+              <p className="text-center mt-2 font-mono">{`> Referred by @${referrer.data?.name}`}</p>
+            )}
           </CardContent>
         </Card>
       </div>
 
-        <figure role="separator" className="flex-1" />
+      <figure role="separator" className="flex-1" />
 
       <div className="flex flex-col sm:flex-row justify-between self-stretch w-full">
         <div className="flex flex-col gap-y-2 items-center sm:items-start">
           <h4 className="text-xs sm:text-sm">Built with the best</h4>
           <div className="flex gap-x-3 h-[4vh]">
-            <img src="/images/frax-finance.webp" alt="Frax finance" className="h-full" />
+            <img
+              src="/images/frax-finance.webp"
+              alt="Frax finance"
+              className="h-full"
+            />
             <div className="w-1 scale-75 bg-foreground" />
-            <img src="/images/superchain.webp" alt="Superchain Ecosystem" className="h-full" />
+            <img
+              src="/images/superchain.webp"
+              alt="Superchain Ecosystem"
+              className="h-full"
+            />
           </div>
         </div>
 
@@ -86,7 +119,11 @@ export default function () {
               alt="X logo"
               className="invert h-full"
             />
-            <img src="/images/tg-logo.webp" alt="Telegram logo" className="h-full" />
+            <img
+              src="/images/tg-logo.webp"
+              alt="Telegram logo"
+              className="h-full"
+            />
           </div>
         </div>
       </div>
