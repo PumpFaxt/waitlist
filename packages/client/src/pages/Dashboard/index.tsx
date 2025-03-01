@@ -70,7 +70,7 @@ export default function () {
 
       <BackgroundMascots
         className={cn(
-          "absolute-cover h-screen duration-1000 z-[-1]",
+          "absolute-cover min-h-screen h-full duration-1000 z-[-1]",
           !showMascots && "opacity-0"
         )}
       />
