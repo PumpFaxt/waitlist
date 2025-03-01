@@ -61,7 +61,7 @@ app.post("/", async (ctx) => {
         ctx,
         newUser.id,
         "Joined the waitlist",
-        100,
+        120,
     );
     return ctx.json(newUser, 201);
 });
@@ -99,6 +99,39 @@ app.get("/points", async (ctx) => {
     }
 
     return ctx.json({ id: user.id, points: user.points }, 200);
+});
+
+app.patch("/update-telegram", async (ctx) => {
+    const db = getDBfromContext(ctx);
+    const privyUser = await getPrivyUserFromContext(ctx);
+    const user = await getUserFromContext(ctx);
+    if (!user || !privyUser) {
+        return ctx.text("Unauthorized", 401);
+    }
+    const currentTelegram = privyUser.telegram;
+
+    if (!currentTelegram) {
+        return ctx.text("Telegram not linked", 400);
+    }
+
+    if (user.telegram) {
+        return ctx.text("Telegram already linked", 400);
+    }
+
+    await db.update(users).set({ telegram: currentTelegram.username }).where(
+        eq(users.id, user.id),
+    );
+
+    await registerPointsTransaction(ctx, user.id, "Linked Telegram", 25);
+
+    if (!user.avatarImageUrl && currentTelegram.photoUrl) {
+        await db.update(users).set({ avatarImageUrl: currentTelegram.photoUrl })
+            .where(
+                eq(users.id, user.id),
+            );
+    }
+
+    return ctx.text("Success", 200);
 });
 
 export default app;
