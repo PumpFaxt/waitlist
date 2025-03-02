@@ -12,3 +12,6 @@ migrations_dir = "drizzle"
 [vars]
 FRONTEND_URL="${FRONTEND_URL}"
 PRIVY_APP_SECRET="${PRIVY_APP_SECRET}"
+
+[observability.logs]
+enabled = true
