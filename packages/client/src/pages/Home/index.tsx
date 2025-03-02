@@ -21,25 +21,19 @@ export default function () {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(isLoading)
-
   const authActions = useAuthActions();
   const login = useLoginWithOAuth({
     onComplete: (_) => {
-<<<<<<< HEAD
       if (ref) {
         authActions.setReferrer(ref);
       }
-=======
       setIsLoading(false);
-      ref && authActions.setReferrer(ref);
->>>>>>> a30ae95d941ed561fd800d5aaf07cf55230eed7f
       navigate("/dashboard");
     },
     onError: (error) => {
       setIsLoading(false);
       console.log("Error:", error);
-    }
+    },
   });
 
   const referrer = useApi("getUserInfoByReferralCode", ref);
@@ -89,7 +83,7 @@ export default function () {
               asChild
               onClick={() => {
                 setIsLoading(true);
-                login.initOAuth({ provider: "twitter" })
+                login.initOAuth({ provider: "twitter" });
               }}
             >
               <AnimatedGradientText className="overflow-hidden group">
@@ -97,16 +91,20 @@ export default function () {
                   JOIN THE WAITLIST
                 </span>
                 <div className="relative size-[1.5em]">
-                  <span className={cn(
-                    "ml-1 duration-150 ease-in-out absolute translate-y-10 -translate-x-8 group-hover:translate-x-0 group-hover:translate-y-0",
-                    isLoading && "animate-bounce duration-300"
-                  )}>
+                  <span
+                    className={cn(
+                      "ml-1 duration-150 ease-in-out absolute translate-y-10 -translate-x-8 group-hover:translate-x-0 group-hover:translate-y-0",
+                      isLoading && "animate-bounce duration-300"
+                    )}
+                  >
                     🚀
                   </span>
-                  <span className={cn(
-                    "ml-1 duration-150 ease-in-out absolute group-hover:-translate-y-10 group-hover:translate-x-8",
-                    isLoading && "animate-bounce duration-300"
-                  )}>
+                  <span
+                    className={cn(
+                      "ml-1 duration-150 ease-in-out absolute group-hover:-translate-y-10 group-hover:translate-x-8",
+                      isLoading && "animate-bounce duration-300"
+                    )}
+                  >
                     🚀
                   </span>
                 </div>
@@ -116,11 +114,15 @@ export default function () {
               <p className="mt-2 font-mono text-center">{`> Referred by @${referrer.data?.name}`}</p>
             )}
           </CardContent>
-          
-          <p className={cn(
-            "text-foreground/50 tracking-widest -mt-4 opacity-0 transition-all duration-300",
-            isLoading && "opacity-100"
-          )}>LOADING..</p>
+
+          <p
+            className={cn(
+              "text-foreground/50 tracking-widest -mt-4 opacity-0 transition-all duration-300",
+              isLoading && "opacity-100"
+            )}
+          >
+            LOADING..
+          </p>
         </Card>
       </div>
 

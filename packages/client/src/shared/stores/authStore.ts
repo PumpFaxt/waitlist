@@ -44,7 +44,6 @@ export const useSyncUserWithPrivy = () => {
     queryFn: () => getAccessToken(),
   });
 
-<<<<<<< HEAD
     const { data: user, refetch: refetchUser } = useQuery({
         queryKey: ["user", accessToken.data],
         queryFn: () => {
@@ -73,35 +72,6 @@ export const useSyncUserWithPrivy = () => {
             updateTelegram.mutate();
         }
     }, [user?.data, privyUser?.telegram]);
-=======
-  const { data: user, refetch: refetchUser } = useQuery({
-    queryKey: ["user", accessToken.data],
-    queryFn: () => {
-      if (!apiClient.doesPrivyAccessTokenExist()) return null;
-      return apiClient.post("/user", {}, { params: { ref: referrer } });
-    },
-    staleTime: 1 * DAY,
-    enabled: !!accessToken.data && apiClient.doesPrivyAccessTokenExist(),
-  });
-
-  const updateTelegram = useMutation({
-    mutationKey: ["updateTelegram", privyUser?.telegram],
-    mutationFn: (telegram: string) => {
-      return apiClient.patch("/user/update-telegram", { telegram });
-    },
-  });
-
-  useEffect(() => {
-    if (
-      privyUser?.telegram?.username &&
-      user?.data.telegram !== privyUser.telegram.username
-    ) {
-      updateTelegram.mutate(privyUser.telegram.username, {
-        onSuccess: () => refetchUser(),
-      });
-    }
-  }, [user?.data, privyUser?.telegram]);
->>>>>>> a30ae95d941ed561fd800d5aaf07cf55230eed7f
 
   useEffect(
     () => apiClient.setPrivyAccessToken(accessToken.data || null),
