@@ -11,15 +11,18 @@ import useApi from "@/shared/hooks/useApi";
 import useQueryParams from "@/shared/hooks/useQueryParams";
 import { useAuthActions } from "@/shared/stores/authStore";
 import { useLoginWithOAuth } from "@privy-io/react-auth";
+import { useNavigate } from "react-router";
 
 export default function () {
   const query = useQueryParams();
   const ref = query.get("ref");
+  const navigate = useNavigate();
 
   const authActions = useAuthActions();
   const login = useLoginWithOAuth({
     onComplete: (_) => {
       ref && authActions.setReferrer(ref);
+      navigate("/dashboard");
     },
   });
 
