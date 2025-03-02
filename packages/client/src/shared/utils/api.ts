@@ -38,6 +38,7 @@ function createApi() {
 const apiClient = {
     get: client.get,
     post: client.post,
+    patch: client.patch,
 
     doesPrivyAccessTokenExist(): boolean {
         const authHeaderLength = client.defaults.headers.common.Authorization

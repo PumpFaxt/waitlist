@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import { usePrivy } from "@privy-io/react-auth";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import apiClient from "../utils/api";
 import { DAY } from "../config/constants";
 import { useEffect } from "react";
 import { User } from "../types/db";
 
 interface IAuthState {
-    user: User | null ;
+    user: User | null;
     referrer: string | null;
     actions: {
         setUser: (user: User) => void;
@@ -53,6 +53,22 @@ export const useSyncUserWithPrivy = () => {
         staleTime: 1 * DAY,
         enabled: !!(accessToken.data) && apiClient.doesPrivyAccessTokenExist(),
     });
+
+    const updateTelegram = useMutation({
+        mutationKey: ["updateTelegram", privyUser?.telegram],
+        mutationFn: (telegram: string) => {
+            return apiClient.patch("/user/update-telegram", { telegram });
+        },
+    });
+
+    useEffect(() => {
+        if (
+            privyUser?.telegram?.username &&
+            (user?.data.telegram !== privyUser.telegram.username)
+        ) {
+            updateTelegram.mutate(privyUser.telegram.username);
+        }
+    }, [user?.data, privyUser?.telegram]);
 
     useEffect(() => apiClient.setPrivyAccessToken(accessToken.data || null), [
         accessToken.data,
