@@ -82,7 +82,7 @@ export default function () {
                 </Button>
                 {!user.telegram && (
                   <p className="text-xs absolute top-full text-foreground/80 py-1">
-                    + 50 points
+                    + 25 points
                   </p>
                 )}
               </div>

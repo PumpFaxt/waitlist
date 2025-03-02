@@ -44,7 +44,7 @@ export const useSyncUserWithPrivy = () => {
         queryFn: () => getAccessToken(),
     });
 
-    const { data: user } = useQuery({
+    const { data: user, refetch: refetchUser } = useQuery({
         queryKey: ["user", accessToken.data],
         queryFn: () => {
             if (!apiClient.doesPrivyAccessTokenExist()) return null;
@@ -56,8 +56,11 @@ export const useSyncUserWithPrivy = () => {
 
     const updateTelegram = useMutation({
         mutationKey: ["updateTelegram", privyUser?.telegram],
-        mutationFn: (telegram: string) => {
-            return apiClient.patch("/user/update-telegram", { telegram });
+        mutationFn: () => {
+            return apiClient.patch("/user/update-telegram");
+        },
+        onSuccess: () => {
+            refetchUser();
         },
     });
 
@@ -66,7 +69,7 @@ export const useSyncUserWithPrivy = () => {
             privyUser?.telegram?.username &&
             (user?.data.telegram !== privyUser.telegram.username)
         ) {
-            updateTelegram.mutate(privyUser.telegram.username);
+            updateTelegram.mutate();
         }
     }, [user?.data, privyUser?.telegram]);
 

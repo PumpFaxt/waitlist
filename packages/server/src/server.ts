@@ -11,7 +11,7 @@ app.use(
     "*",
     cors({
         origin: "*",
-        allowMethods: ["POST", "GET", "OPTIONS"],
+        allowMethods: ["POST", "GET", "PATCH", "OPTIONS"],
         allowHeaders: ["Content-Type", "Authorization"],
     }),
 );
@@ -22,6 +22,6 @@ app.use(
 // });
 
 app.route("/user", user);
-app.route("/referral", referral); 
+app.route("/referral", referral);
 
 export default app;
