@@ -47,7 +47,7 @@ export default function () {
           <div className="flex flex-col gap-y-4 w-full">
             <div className="relative">
               <h2 className="text-3xl truncate flex-1">{user.name}</h2>
-              <p className="text-xs text-foreground/50 absolute top-full translate-y-1 font-mono">
+              <p className="text-xs text-foreground/50 top-full translate-y-1 font-mono">
                 {referrer.data && `Referred by @${referrer.data.name}`}
               </p>
             </div>
