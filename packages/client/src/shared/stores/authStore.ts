@@ -7,23 +7,23 @@ import { useEffect } from "react";
 import { User } from "../types/db";
 
 interface IAuthState {
-    user: User | null;
-    referrer: string | null;
-    actions: {
-        setUser: (user: User) => void;
-        clearUser: () => void;
-        setReferrer: (code: string) => void;
-    };
+  user: User | null;
+  referrer: string | null;
+  actions: {
+    setUser: (user: User) => void;
+    clearUser: () => void;
+    setReferrer: (code: string) => void;
+  };
 }
 
 const useAuthStore = create<IAuthState>()((set) => ({
-    user: null,
-    referrer: null,
-    actions: {
-        setUser: (user) => set(() => ({ user })),
-        clearUser: () => set(() => ({ user: null })),
-        setReferrer: (code: string) => set(() => ({ referrer: code })),
-    },
+  user: null,
+  referrer: null,
+  actions: {
+    setUser: (user) => set(() => ({ user })),
+    clearUser: () => set(() => ({ user: null })),
+    setReferrer: (code: string) => set(() => ({ referrer: code })),
+  },
 }));
 
 export const useUser = () => useAuthStore((state) => state.user);
@@ -33,17 +33,18 @@ export const useReferrer = () => useAuthStore((state) => state.referrer);
 export const useAuthActions = () => useAuthStore((state) => state.actions);
 
 export const useSyncUserWithPrivy = () => {
-    const { user: privyUser, getAccessToken } = usePrivy();
-    const authActions = useAuthActions();
-    const referrer = useReferrer();
+  const { user: privyUser, getAccessToken } = usePrivy();
+  const authActions = useAuthActions();
+  const referrer = useReferrer();
 
-    if (!privyUser) authActions.clearUser();
+  if (!privyUser) authActions.clearUser();
 
-    const accessToken = useQuery({
-        queryKey: ["accessToken", privyUser?.id],
-        queryFn: () => getAccessToken(),
-    });
+  const accessToken = useQuery({
+    queryKey: ["accessToken", privyUser?.id],
+    queryFn: () => getAccessToken(),
+  });
 
+<<<<<<< HEAD
     const { data: user, refetch: refetchUser } = useQuery({
         queryKey: ["user", accessToken.data],
         queryFn: () => {
@@ -72,12 +73,40 @@ export const useSyncUserWithPrivy = () => {
             updateTelegram.mutate();
         }
     }, [user?.data, privyUser?.telegram]);
+=======
+  const { data: user, refetch: refetchUser } = useQuery({
+    queryKey: ["user", accessToken.data],
+    queryFn: () => {
+      if (!apiClient.doesPrivyAccessTokenExist()) return null;
+      return apiClient.post("/user", {}, { params: { ref: referrer } });
+    },
+    staleTime: 1 * DAY,
+    enabled: !!accessToken.data && apiClient.doesPrivyAccessTokenExist(),
+  });
 
-    useEffect(() => apiClient.setPrivyAccessToken(accessToken.data || null), [
-        accessToken.data,
-    ]);
+  const updateTelegram = useMutation({
+    mutationKey: ["updateTelegram", privyUser?.telegram],
+    mutationFn: (telegram: string) => {
+      return apiClient.patch("/user/update-telegram", { telegram });
+    },
+  });
 
-    useEffect(() => user?.data && authActions.setUser(user.data), [
-        user,
-    ]);
+  useEffect(() => {
+    if (
+      privyUser?.telegram?.username &&
+      user?.data.telegram !== privyUser.telegram.username
+    ) {
+      updateTelegram.mutate(privyUser.telegram.username, {
+        onSuccess: () => refetchUser(),
+      });
+    }
+  }, [user?.data, privyUser?.telegram]);
+>>>>>>> a30ae95d941ed561fd800d5aaf07cf55230eed7f
+
+  useEffect(
+    () => apiClient.setPrivyAccessToken(accessToken.data || null),
+    [accessToken.data]
+  );
+
+  useEffect(() => user?.data && authActions.setUser(user.data), [user]);
 };
