@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "aa7ccb76-30c2-4cbe-8bd9-8e59abe12d63",
+  "id": "eab885f2-6191-4c0c-9faa-c7ef8352178f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "points_transactions_table": {
