@@ -21,7 +21,9 @@ export default function () {
   const authActions = useAuthActions();
   const login = useLoginWithOAuth({
     onComplete: (_) => {
-      ref && authActions.setReferrer(ref);
+      if (ref) {
+        authActions.setReferrer(ref);
+      }
       navigate("/dashboard");
     },
   });

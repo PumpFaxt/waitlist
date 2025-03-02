@@ -42,7 +42,7 @@ export default function () {
               className={cn(
                 "text-left flex-1 truncate uppercase",
                 key === 0 && "text-amber-500 font-semibold",
-                key === 1 && "font-semibold"
+                key === 1 && "font-semibold text-transparent bg-linear-to-b from-white to-white/70"
               )}
             >
               @{item.twitter}
