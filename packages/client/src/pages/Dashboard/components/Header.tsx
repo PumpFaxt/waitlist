@@ -5,7 +5,8 @@ import Icon from "@/shared/components/Icon";
 import UserAvatar from "@/shared/components/UserAvatar";
 import useApi from "@/shared/hooks/useApi";
 import { useUser } from "@/shared/stores/authStore";
-import { useLinkAccount, usePrivy } from "@privy-io/react-auth";
+import { usePrivy } from "@privy-io/react-auth";
+import { AlertDialogComponent } from "./AlertDialog";
 
 export default function () {
   const user = useUser();
@@ -20,27 +21,29 @@ export default function () {
     <div className="flex flex-col xl:flex-row self-stretch gap-5">
       <Card className="flex-1 bg-card/5 backdrop-blur-sm rounded-md">
         <CardContent className="flex gap-x-5">
-          <Button
-            className="absolute top-5 right-5"
-            variant="destructive"
-            onClick={() => {
-              if (confirm("Are you sure you want to logout?")) {
-                privy.logout();
-              }
-            }}
-          >
-            <Icon name="log-out" className="size-5" />
-          </Button>
+          <AlertDialogComponent
+            trigger={
+              <Button
+                className="absolute top-5 right-5 z-20"
+                variant="destructive"
+              >
+                <Icon name="log-out" className="size-5" />
+              </Button>
+            } 
+            action={() => { privy.logout() }} 
+            title="Logout"
+            description="Are you sure you want to logout?"
+            />
 
           <div className="">
             <UserAvatar
-            user={user}
-            width="100"
-            height="100"
-            className="aspect-square flex shrink-0 object-cover rounded-md border"
-          />
+              user={user}
+              width="100"
+              height="100"
+              className="aspect-square flex shrink-0 object-cover rounded-md border"
+            />
           </div>
-          
+
           <div className="flex flex-col gap-y-4 w-full">
             <div className="relative">
               <h2 className="text-3xl truncate flex-1">{user.name}</h2>

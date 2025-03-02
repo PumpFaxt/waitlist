@@ -9,6 +9,7 @@ import useApi from "@/shared/hooks/useApi";
 import { Card } from "@/components/ui/card";
 import Icon from "@/shared/components/Icon";
 import PointHistory from "./components/PointHistory";
+import Loader from "@/shared/components/Loader";
 
 export default function () {
   const user = useUser();
@@ -17,7 +18,11 @@ export default function () {
   const points = useApi("getPoints");
   const pointsHistory = useApi("getPointsTransactions");
 
-  if (!user) return <>Redirecting... Please reload if this takes too long</>;
+  if (!user) return (
+    <div className="flex items-center justify-center h-screen">
+      <Loader />
+    </div>
+  );
 
   return (
     <div className="min-h-screen relative flex flex-col py-[5vh] px-[10vw] md:px-[17vw] gap-y-6">
