@@ -103,7 +103,7 @@ export default function () {
                   </p>
                 )}
                 {user.telegram && (
-                  <p className="text-xs text-foreground/80 py-1 whitespace-nowrap cursor-pointer hover:text-foreground">
+                  <p onClick={()=>window.open("https://t.me/pumpfaxt")} className="text-xs text-foreground/80 py-1 whitespace-nowrap cursor-pointer hover:text-foreground">
                     {"(click for more points)"}
                   </p>
                 )}
