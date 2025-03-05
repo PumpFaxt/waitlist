@@ -58,7 +58,10 @@ export default function () {
               <div className="w-full">
                 <Button
                   variant="outline"
-                  className="bg-black flex w-full items-center text-white font-mono text-sm gap-x-2 tracking-tighter uppercase h-10"
+                  className={cn(
+                    "bg-black flex w-full items-center text-white font-mono text-sm gap-x-2 tracking-tighter uppercase h-10",
+                    user.telegram && "pointer-events-none"
+                  )}
                 >
                   <img
                     src="https://x.com/favicon.ico"
@@ -77,18 +80,16 @@ export default function () {
                 </p>
               </div>
 
-              <div
-                className={cn(
-                  "relative w-full",
-                  user.telegram && "pointer-events-none"
-                )}
-              >
+              <div className={cn("relative w-full")}>
                 <Button
                   variant="default"
                   onClick={() => {
                     privy.linkTelegram();
                   }}
-                  className="text-[#24a2df] w-full flex items-center font-bold font-mono text-sm gap-x-2 tracking-tighter h-10 uppercase"
+                  className={cn(
+                    "text-[#24a2df] w-full flex items-center font-bold font-mono text-sm gap-x-2 tracking-tighter h-10 uppercase",
+                    user.telegram && "pointer-events-none"
+                  )}
                 >
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/2111/2111644.png"
@@ -98,12 +99,13 @@ export default function () {
                 </Button>
 
                 {!user.telegram && (
-                  <p className="text-xs text-foreground/80 py-1">
-                    + 25 points
-                  </p>
+                  <p className="text-xs text-foreground/80 py-1">+ 25 points</p>
                 )}
                 {user.telegram && (
-                  <p onClick={()=>window.open("https://t.me/pumpfaxt")} className="text-xs text-foreground/80 py-1 whitespace-nowrap cursor-pointer hover:text-foreground">
+                  <p
+                    onClick={() => window.open("https://t.me/pumpfaxt")}
+                    className="text-xs text-foreground/80 py-1 whitespace-nowrap cursor-pointer hover:text-foreground"
+                  >
                     {"(click for more points)"}
                   </p>
                 )}
