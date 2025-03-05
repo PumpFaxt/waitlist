@@ -13,7 +13,7 @@ import useQueryParams from "@/shared/hooks/useQueryParams";
 import { useAuthActions } from "@/shared/stores/authStore";
 import { useLoginWithOAuth } from "@privy-io/react-auth";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function () {
   const query = useQueryParams();
@@ -149,16 +149,20 @@ export default function () {
         <div className="flex flex-col items-center mt-4 gap-y-2 sm:items-end sm:mt-0">
           <h4 className="text-xs sm:text-sm">Socials</h4>
           <div className="flex gap-x-3 h-[4vh] py-1">
-            <img
-              src="https://logos-world.net/wp-content/uploads/2023/08/X-Logo.png"
-              alt="X logo"
-              className="h-full invert"
-            />
-            <img
-              src="/images/tg-logo.webp"
-              alt="Telegram logo"
-              className="h-full"
-            />
+            <Link to="https://x.com/pumpfaxt" target="_abc" className="h-full">
+              <img
+                src="https://logos-world.net/wp-content/uploads/2023/08/X-Logo.png"
+                alt="X logo"
+                className="invert h-full"
+              />
+            </Link>
+            <Link to="https://t.me/pumpfaxt" target="_abc" className="h-full">
+              <img
+                src="/images/tg-logo.webp"
+                alt="Telegram logo"
+                className="h-full"
+              />
+            </Link>
           </div>
         </div>
       </div>
