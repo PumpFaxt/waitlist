@@ -29,11 +29,13 @@ export default function () {
               >
                 <Icon name="log-out" className="size-5" />
               </Button>
-            } 
-            action={() => { privy.logout() }} 
+            }
+            action={() => {
+              privy.logout();
+            }}
             title="Logout"
             description="Are you sure you want to logout?"
-            />
+          />
 
           <div className="">
             <UserAvatar
@@ -53,13 +55,27 @@ export default function () {
             </div>
 
             <div className="flex w-full flex-col sm:flex-row gap-3 pb-4">
-              <Button
-                variant="outline"
-                className="bg-black w-full flex items-center text-white font-mono text-sm gap-x-2 tracking-tighter uppercase"
-              >
-                <img src="https://x.com/favicon.ico" className="size-[1.5em]" />
-                {`@${user.twitter}`}
-              </Button>
+              <div className="w-full">
+                <Button
+                  variant="outline"
+                  className="bg-black flex w-full items-center text-white font-mono text-sm gap-x-2 tracking-tighter uppercase h-10"
+                >
+                  <img
+                    src="https://x.com/favicon.ico"
+                    className="size-[1.5em]"
+                  />
+                  {`@${user.twitter}`}
+                </Button>
+
+                <p
+                  onClick={() =>
+                    window.open("https://x.com/pumpfaxt", "_blank")
+                  }
+                  className="text-xs whitespace-nowrap text-foreground/70 cursor-pointer hover:text-foreground"
+                >
+                  {"(Click for more points)"}
+                </p>
+              </div>
 
               <div
                 className={cn(
@@ -72,7 +88,7 @@ export default function () {
                   onClick={() => {
                     privy.linkTelegram();
                   }}
-                  className="text-[#24a2df] w-full flex items-center font-bold font-mono text-sm gap-x-2 tracking-tighter uppercase"
+                  className="text-[#24a2df] w-full flex items-center font-bold font-mono text-sm gap-x-2 tracking-tighter h-10 uppercase"
                 >
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/2111/2111644.png"
@@ -80,9 +96,15 @@ export default function () {
                   />
                   {user.telegram || `Connect`}
                 </Button>
+
                 {!user.telegram && (
-                  <p className="text-xs absolute top-full text-foreground/80 py-1">
+                  <p className="text-xs text-foreground/80 py-1">
                     + 25 points
+                  </p>
+                )}
+                {user.telegram && (
+                  <p className="text-xs text-foreground/80 py-1 whitespace-nowrap cursor-pointer hover:text-foreground">
+                    {"(click for more points)"}
                   </p>
                 )}
               </div>

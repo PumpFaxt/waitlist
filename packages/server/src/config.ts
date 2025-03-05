@@ -1,1 +1,1 @@
-export const privyAppId = "cm7gve1hh00n3z3e4ysxj10j3";
+export const privyAppId = "cm7tp2yzf017phhk77qhck5ld";
